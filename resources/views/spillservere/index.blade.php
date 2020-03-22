@@ -27,8 +27,8 @@
                     Private servere - Du har rolle som <b>gamecrew</b> og kan derfor opprette ubegrenset med spillservere.
 
                     <table>
-                        <tr><th>Navn</th><th>Tidspunkt</th><th>Deltagere</th><th>Type</th><th>Påmelding</th></tr>
-                        <tr><td>GlobeLAN 1336</td><td>Tidligere</td><td>Mange</td><td>LAN-party</td><td>Stengt. Du var deltager</td></tr>
+                        <tr><th>Navn</th><th>Spill</th><th>Antall spillere</th><th>Tilkobling</th><th>Info</th></tr>
+                        <tr><td>MinPrivate CSGO </td><td>Counter-Strike:GO</td><td>2/16</td><td>game01.digitalungdom.no:12343</td><td>Map: de_dust<br />rcon_password: passord123</td></tr>
                 </div>
             </div>
         </div>
