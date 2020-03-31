@@ -25,6 +25,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        // Grant globaladmins all rights
+        Gate::before(function ($user, $ability) {
+             return $user->globaladmin ? true: null;
+        });
     }
 }

@@ -38,6 +38,9 @@
                             <li><a class="nav-link" href="{{route('spillservere.index')}}">Spillservere</a></li>
                             <li><a class="nav-link" href="{{route('medlemsskap.index')}}">Mitt medlemsskap</a></li>
                             <li><a class="nav-link" href="#">Bli frivillig</a></li>
+                            @can('anything')
+                                <li><a class="nav-link" href="#">Admin</a></li>
+                            @endcan
                         @endauth
                     </ul>
 
