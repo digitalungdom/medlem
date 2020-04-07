@@ -38,9 +38,20 @@
                             <li><a class="nav-link" href="{{route('spillservere.index')}}">Spillservere</a></li>
                             <li><a class="nav-link" href="{{route('medlemsskap.index')}}">Mitt medlemsskap</a></li>
                             <li><a class="nav-link" href="#">Bli frivillig</a></li>
-                            @can('anything')
-                                <li><a class="nav-link" href="#">Admin</a></li>
-                            @endcan
+
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">Admin</span> <span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                        @can('events')
+                                            <li><a class="nav-link" href="{{ route('events.admin') }}"> Arrangementer</a></li>
+                                        @endcan
+
+                                        @can('roles')
+                                            <li><a class="nav-link" href="#">Tilgangsstyring</li>
+                                        @endcan
+                                    </ul>
+                                </li>
+
                         @endauth
                     </ul>
 
