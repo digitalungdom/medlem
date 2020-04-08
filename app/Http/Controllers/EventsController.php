@@ -26,6 +26,7 @@ class EventsController extends Controller
      */
     public function create()
     {
+        $this->authorize('events', Events::class);
         //
     }
 
@@ -38,6 +39,7 @@ class EventsController extends Controller
     public function store(Request $request)
     {
         //
+        $this->authorize('events', Events::class);
         $post = $request->validate([
             'name' => 'required|unique:events|max:190',
             'slug' => 'required|unique:events|max:24'
@@ -70,6 +72,7 @@ class EventsController extends Controller
     public function edit($events)
     {
         //
+        $this->authorize('events', Events::class);
         $event = Events::where('slug',$events)->firstOrFail();
         return view('events.edit')->with('event', $event);
     }
@@ -84,6 +87,7 @@ class EventsController extends Controller
     public function update(Request $request, Events $event)
     {
         //
+        $this->authorize('events', Events::class);
 
         $post = $request->validate([
             'name' => 'required|unique:events,name,'.$event->id.'|max:190',
@@ -102,9 +106,11 @@ class EventsController extends Controller
     public function destroy(Events $events)
     {
         //
+        $this->authorize('events', Events::class);
     }
 
     public function adminindex() {
+        $this->authorize('events', Events::class);
         $events = Events::latest()->get();
         #ddd($events);
         return view("events.admin", [
