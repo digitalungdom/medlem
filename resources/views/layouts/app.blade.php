@@ -40,7 +40,9 @@
                             <li><a class="nav-link" href="#">Bli frivillig</a></li>
 
                                 <li class="dropdown">
+                                    @canany(['events','roles'])
                                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">Admin</span> <span class="caret"></span></a>
+                                    @endcanany
                                         <ul class="dropdown-menu">
                                         @can('events')
                                             <li><a class="nav-link" href="{{ route('events.admin') }}"> Arrangementer</a></li>
