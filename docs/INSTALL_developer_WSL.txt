@@ -1,0 +1,32 @@
+* Install Windows Subsystem for Linux
+* Install Ubuntu from Microsoft Store
+* apt-get install apache2 php php-mysql php-redis git
+* create/edit /etc/wsl.conf, add the following:
+[automount]
+options = "metadata"
+* git clone https://github.com/digitalungdom/medlem.git /mnt/c/devel/medlem
+* Configure Apache2
+<VirtualHost *:80>
+        ServerName medlem.laaknor.party
+
+        ServerAdmin webmaster@localhost
+        DocumentRoot /mnt/c/devel/medlem/public
+
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+</VirtualHost>
+
+<Directory "/mnt/c/devel/medlem">
+        require all granted
+        AllowOverride All
+        Options +FollowSymLinks +Indexes
+</Directory>
+* cd into the folder you've installed in.
+* composer install
+* cp .env.example .env
+* Edit .env, set database-settings, sqlite is probably ok.
+* php artisan make:key
+* php artisan migrate --seed
+
