@@ -17,14 +17,17 @@ class AddCustomFieldsToUsersTable extends Migration
             //
             $table->string('firstname');
             $table->string('lastname');
-            $table->string('cellphone')->unique();
-            #$table->date('birthday');
-            #$table->enum('gender', ['male', 'female','other']);
+            $table->string('cellphone')->nullable()->unique();
+            $table->date('birthday')->nullable();
+            $table->enum('gender', ['male', 'female','other','unknown'])->default('unknown');
             $table->dateTime('self_verified_at')->nullable();
             $table->dateTime('last_login')->nullable();
             $table->boolean('globaladmin')->nullable();
             $table->boolean('is_parent')->nullable();
             $table->bigInteger('parent')->nullable()->references('id')->on('users');
+            $table->text('address')->nullable();
+            $table->integer('postnumber')->nullable();
+
         });
     }
 
