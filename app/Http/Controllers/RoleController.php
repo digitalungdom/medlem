@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
+use App\User;
 use \DB;
 
 class RoleController extends Controller
@@ -72,9 +73,12 @@ class RoleController extends Controller
         $rolePermissions = Permission::join('role_has_permissions', 'role_has_permissions.permission_id','=','permissions.id')
             ->where('role_has_permissions.role_id', $id)
             ->get();
+        $users = User::role($role)->get();
+
         return view('role.show',[
             'role' => $role,
             'rolePermissions' => $rolePermissions,
+            'users' => $users,
         ]);
     }
 
