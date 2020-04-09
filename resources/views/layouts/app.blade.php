@@ -49,7 +49,7 @@
                                         @endcan
 
                                         @can('roles')
-                                            <li><a class="nav-link" href="#">Tilgangsstyring</li>
+                                            <li><a class="nav-link" href="{{ route('role.index') }}">Tilgangsstyring</li>
                                         @endcan
                                     </ul>
                                 </li>
