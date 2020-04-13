@@ -1,6 +1,6 @@
 * Install Windows Subsystem for Linux
 * Install Ubuntu from Microsoft Store
-* apt-get install apache2 php php-mysql php-redis git
+* apt-get install apache2 php php-mysql php-redis git php-gd
 * create/edit /etc/wsl.conf, add the following:
 [automount]
 options = "metadata"
