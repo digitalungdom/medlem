@@ -65,6 +65,10 @@ class ImportSVGSeatmapJob implements ShouldQueue
                     $seat->width = $value->attributes()->width;
                     $seat->height = $value->attributes()->height;
                 break;
+                case 'text':
+                    $seat->svgX1 = $value->attributes()->x;
+                    $seat->svgY1 = $value->attributes()->y;
+                break;
             } // End switch
             $seat->save();
         } // end foreach

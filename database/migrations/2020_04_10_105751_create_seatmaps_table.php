@@ -36,6 +36,7 @@ class CreateSeatmapsTable extends Migration
             $table->integer('svgY2')->nullable();
             $table->integer('width')->nullable();
             $table->integer('height')->nullable();
+            $table->text('text')->nullable();
 
         });
     }
