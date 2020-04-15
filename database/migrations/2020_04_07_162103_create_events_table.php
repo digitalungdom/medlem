@@ -24,6 +24,7 @@ class CreateEventsTable extends Migration
             $table->boolean('public')->default(false);
             $table->softDeletes();
             $table->integer('maxUsers')->default(-1);
+            $table->string('seatmap_original_file')->nullable();
         });
     }
 
