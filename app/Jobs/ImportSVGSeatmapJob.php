@@ -25,7 +25,7 @@ class ImportSVGSeatmapJob implements ShouldQueue
 
 
     public $event;
-    public function __construct($event)
+    public function __construct(Events $event)
 
     {
         //
@@ -38,13 +38,12 @@ class ImportSVGSeatmapJob implements ShouldQueue
      *
      * @return void
      */
-    public function handle(Events $event)
+    public function handle()
     {
         //
-        $Events = Events::find(1);
-        #$Events = Events::find($event);
+        $event = Events::find($this->event)->first();
 
-        $seatmap = Seatmap::firstOrNew(['event' => $Events]);
+        $seatmap = Seatmap::firstOrNew(['event' => $event->id]);
         $seatmap->save();
         #Log::debug('Fant seatmap', ['seatmap' => $seatmap]);
         $fil = Storage::get('seatmap_original/GL30_hallkart.svg');
@@ -61,8 +60,8 @@ class ImportSVGSeatmapJob implements ShouldQueue
             switch($shape) {
                 case 'rect':
 
-                    $seat->x = $value->attributes()->svgX1;
-                    $seat->y = $value->attributes()->svgY1;
+                    $seat->svgX1 = $value->attributes()->x;
+                    $seat->svgY1 = $value->attributes()->y;
                     $seat->width = $value->attributes()->width;
                     $seat->height = $value->attributes()->height;
                 break;

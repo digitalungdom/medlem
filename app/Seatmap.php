@@ -15,9 +15,7 @@ class Seatmap extends Model
 
 
     public static function importSVGJob($event) {
-        Log::debug('Dispatching SVG import for ', ['event' => $event]);
         $event = Events::find($event);
-
         ImportSVGSeatmapJob::dispatch($event);
     }
 
