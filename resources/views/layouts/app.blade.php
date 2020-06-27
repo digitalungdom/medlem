@@ -40,7 +40,7 @@
                             <li><a class="nav-link" href="#">Bli frivillig</a></li>
 
                                 <li class="dropdown">
-                                    @canany(['events','roles'])
+                                    @canany(['events','roles','membershipType'])
                                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">Admin</span> <span class="caret"></span></a>
                                     @endcanany
                                         <ul class="dropdown-menu">
@@ -49,7 +49,11 @@
                                         @endcan
 
                                         @can('roles')
-                                            <li><a class="nav-link" href="{{ route('role.index') }}">Tilgangsstyring</li>
+                                            <li><a class="nav-link" href="{{ route('role.index') }}">Tilgangsstyring</a></li>
+                                        @endcan
+
+                                        @can('membershipType')
+                                            <li><a class="nav-link" href="{{ route('membershipType.index') }}">Medlemsskapstyper</a></li>
                                         @endcan
                                     </ul>
                                 </li>
