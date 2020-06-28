@@ -15,5 +15,6 @@ class DefaultContentSeed extends Seeder
         // Seed Permissions assignable
         Permission::firstOrCreate(array('name' => 'roles'));
         Permission::firstOrCreate(array('name' => 'events'));
+        Permission::firstOrCreate(array('name' => 'membershipType'));
     }
 }
