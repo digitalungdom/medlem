@@ -24,7 +24,7 @@ Auth::routes(['verify' => true]);
 Route::resource('events', 'EventsController');
 Route::get('admin/events', 'EventsController@adminindex')->name('events.admin');
 Route::resource('admin/role', 'RoleController');
-Route::resource('membershipType', 'membershipTypeController');
+Route::resource('membershipType', 'MembershipTypeController');
 
 
 Route::get('/medlemsskap', function() {
