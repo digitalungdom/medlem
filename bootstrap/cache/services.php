@@ -41,7 +41,6 @@
     37 => 'App\\Providers\\EventServiceProvider',
     38 => 'App\\Providers\\HorizonServiceProvider',
     39 => 'App\\Providers\\RouteServiceProvider',
-    40 => 'App\\Providers\\TelescopeServiceProvider',
   ),
   'eager' => 
   array (
@@ -70,7 +69,6 @@
     22 => 'App\\Providers\\EventServiceProvider',
     23 => 'App\\Providers\\HorizonServiceProvider',
     24 => 'App\\Providers\\RouteServiceProvider',
-    25 => 'App\\Providers\\TelescopeServiceProvider',
   ),
   'deferred' => 
   array (
