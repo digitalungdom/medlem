@@ -68,6 +68,13 @@
       'Html' => 'Collective\\Html\\HtmlFacade',
     ),
   ),
+  'marvinlabs/laravel-discord-logger' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'MarvinLabs\\DiscordLogger\\ServiceProvider',
+    ),
+  ),
   'nesbot/carbon' => 
   array (
     'providers' => 
