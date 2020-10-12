@@ -62,4 +62,14 @@ class User extends Authenticatable
         if($membership->count() > 0) return true;
         else return false;
     }
+    public function getAgeAttribute() {
+        return Carbon::parse($this->birthday)->diff(Carbon::now())->format('%y');
+    }
+
+    public function getValidMembershipTypes() {
+        if($this->age) {
+            return \App\MembershipType::where('maxAge','>=',$this->age)->orWhere('minAge','<=',$this->age)->get();
+        }
+
+    }
 }
