@@ -13,46 +13,41 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    <form method=POST action='{{ route('events.update', $event) }}'>
+                        
+                    <form method=POST action='{{ route('tickettypes.update', ['event' => $event[0]->slug, 'tickettype' => $tickettype->id] ) }}'>
                         @csrf
                         @method('PUT')
                         <div>
-                          <input type=text name=name value='{{$event->name}}' required class="@error('title') is-invalid @enderror"> Name
+                          <input type=text name=name value='{{$tickettype->name}}' required class="@error('name') is-invalid @enderror"> Name
                            @error('name')
                              <div class="alert alert-danger">{{$message}}</div>
                            @enderror
                         </div>
 
                         <div>
-                            <input type=text name=slug value='{{$event->slug}}' required class="@error('slug') is-invalid @enderror"> URL-slug
-                            @error('slug')
+                            <input type=text name=price value='{{$tickettype->price}}' required class="@error('price') is-invalid @enderror"> Pris
+                            @error('price')
                                 <div class="alert alert-danger">{{$message}}</div>
                             @enderror
                         </div>
 
                         <div>
-                            <input type=datetime-local name=startTime value='{{$event->startTime}}' required class="@error('startTime') is-invalid @enderror"> Starttidspunkt
-                            @error('startTime')
+                            <input type=numeric name=maxPerUser value='{{$tickettype->maxPerUser}}' required class="@error('maxPerUser') is-invalid @enderror"> Max antall billetter per bruker
+                            @error('maxPerUser')
                                 <div class="alert alert-danger">{{$message}}</div>
                             @enderror
                         </div>
 
                         <div>
-                            <input type=datetime-local name=stopTime value='{{$event->stopTime}}' required class="@error('stopTime') is-invalid @enderror"> Sluttidspunkt
-                            @error('stopTime')
+                            <textarea name=description class="@error('description') is-invalid @enderror">{{$tickettype->description}}</textarea>Beskrivelse av billettypen
+                            @error('description')
                                 <div class="alert alert-danger">{{$message}}</div>
                             @enderror
                         </div>
+                        
                         <div>
-                            <input type=numeric name=maxUsers value='{{$event->maxUsers}}' required class="@error('maxUsers') is-invalid @enderror"> Maks antall deltagere (-1 for å ha ubegrenset)
-                            @error('maxUsers')
-                                <div class="alert alert-danger">{{$message}}</div>
-                            @enderror
-                        </div>
-                        <div>
-                            <input type=checkbox name=mustBeMember value='1' @if($event->mustBeMember == 1)checked @endif class="@error('mustBeMember') is-invalid @enderror"> Må være medlem for å melde seg på?
-                            @error('mustBeMember')
+                            <input type=checkbox name=enabled value='1' @if($tickettype->enabled == 1)checked @endif class="@error('enabled') is-invalid @enderror"> Billettypen aktiv?
+                            @error('enabled')
                                 <div class="alert alert-danger">{{$message}}</div>
                             @enderror
                         </div>
@@ -64,11 +59,7 @@
                     </form>
                 </div>
 
-                <div class="card-body">
-
-                    <a href='{{ route('tickettypes.index', $event->slug) }}'>Billettyper</a>
-
-                </div>
+                
             </div>
         </div>
     </div>

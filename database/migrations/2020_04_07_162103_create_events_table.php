@@ -25,6 +25,9 @@ class CreateEventsTable extends Migration
             $table->softDeletes();
             $table->integer('maxUsers')->default(-1);
             $table->string('seatmap_original_file')->nullable();
+            $table->boolean('mustBeMember')->default(false);
+            $table->boolean('canSelectSeat')->default(false);
+
         });
     }
 

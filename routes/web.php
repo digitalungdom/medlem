@@ -25,6 +25,8 @@ Route::resource('events', 'EventsController');
 Route::get('admin/events', 'EventsController@adminindex')->name('events.admin');
 Route::resource('admin/role', 'RoleController');
 Route::resource('membershipType', 'MembershipTypeController');
+Route::resource('events/{event}/tickettypes', 'EventTicketTypesController');
+
 
 
 Route::get('/medlemsskap', function() {

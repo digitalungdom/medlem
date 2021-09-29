@@ -20,7 +20,7 @@
                         @forelse ($events as $event)
                             <tr>
                                 <td><a href="{{ route('events.edit', $event->slug) }}">{{ $event->name}}</a></td><td>{{ $event->startTime }} til {{ $event->stopTime }}</td>
-                                <td>@if($event->maxUsers > 0) {{ $event->maxUsers }}@endif</td>
+                                <td>@if($event->maxUsers > 0) {{ $event->maxUsers }} @else &infin; @endif</td>
                                 <td>LAN-party</td>
                                 </tr>
                         @empty
@@ -35,6 +35,10 @@
                         <input type=text name=name placeholder="Arrangementsnavn">
                         <br />
                         <input type=text name=slug placeholder="URL-navn">
+                        <br />
+                        <input type=datetime-local name=startTime placeholder="Starttidspunkt">
+                        <br />
+                        <input type=datetime-local name=stopTime placeholder="Stopptidspunkt">
                         <br />
                         <input type=submit value='Legg til arrangement' class="btn btn-primary">
                     </form>

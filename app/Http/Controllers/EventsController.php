@@ -42,11 +42,15 @@ class EventsController extends Controller
         $this->authorize('events', Events::class);
         $post = $request->validate([
             'name' => 'required|unique:events|max:190',
-            'slug' => 'required|unique:events|max:24'
+            'slug' => 'required|unique:events|max:24',
+            'startTime' => 'required|date|after:today',
+            'stopTime' => 'required|date|after:today'
         ]);
         Events::create([
             'name' => $post['name'],
-            'slug' => $post['slug']
+            'slug' => $post['slug'],
+            'startTime' => $post['startTime'],
+            'stopTime' => $post['stopTime']
             ]);
 
         return redirect(route('events.admin'));
@@ -91,7 +95,12 @@ class EventsController extends Controller
 
         $post = $request->validate([
             'name' => 'required|unique:events,name,'.$event->id.'|max:190',
-            'slug' => 'required|unique:events,slug,'.$event->id.'|max:24'
+            'slug' => 'required|unique:events,slug,'.$event->id.'|max:24',
+            'startTime' => 'required|date|after:today',
+            'stopTime' => 'required|date|after:today',
+            'maxUsers' => 'required|numeric|min:-1',
+            'mustBeMember' => 'nullable|boolean',
+            'ticketPrice' => 'required|numeric|min:0'
         ]);
         $event->update($post);
         return redirect(route('events.admin'));
