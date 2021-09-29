@@ -99,9 +99,9 @@ class EventsController extends Controller
             'startTime' => 'required|date|after:today',
             'stopTime' => 'required|date|after:today',
             'maxUsers' => 'required|numeric|min:-1',
-            'mustBeMember' => 'nullable|boolean',
             'ticketPrice' => 'required|numeric|min:0'
         ]);
+        $post['mustBeMember'] = $request->input('mustBeMember') ? 1: 0;
         $event->update($post);
         return redirect(route('events.admin'));
     }
