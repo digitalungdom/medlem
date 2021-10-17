@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\EventsController;
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +24,7 @@ Auth::routes(['verify' => true]);
 //Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('events', 'EventsController');
 Route::get('admin/events', 'EventsController@adminindex')->name('events.admin');
+Route::get('events/{event}/signup', 'EventsController@signup')->name('events.signup');
 Route::resource('admin/role', 'RoleController');
 Route::resource('membershipType', 'MembershipTypeController');
 Route::resource('events/{event}/tickettypes', 'EventTicketTypesController');
@@ -36,3 +38,4 @@ Route::get('/medlemsskap', function() {
 Route::get('/spillservere', function() {
     return view('spillservere.index');
 })->name('spillservere.index');
+Route::resource('test', 'TestController');
