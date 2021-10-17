@@ -5,6 +5,7 @@ namespace App;
 use App\Http\Controllers\MembershipController;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use App\Membership;
@@ -44,7 +45,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    protected $appends = array('FullName');
+    protected $appends = array('FullName','IsMember');
 
 
 
@@ -70,6 +71,22 @@ class User extends Authenticatable
         if($this->age) {
             return \App\MembershipType::where('maxAge','>=',$this->age)->orWhere('minAge','<=',$this->age)->get();
         }
+
+    }
+
+    public function isMember($user = NULL,$date = NULL) {
+        if($date == NULL) $date = Carbon::now();
+        else $date = Carbon::parse($date);
+        if($user == NULL) $user = Auth::user();
+        else $user = User::findOrFail($user);
+
+        $member = Membership::where('user_id', $user->id)
+            ->where('startTime', '<=', $date)
+            ->where('stopTime', '>=', $date)
+            ->get();
+        if(count($member) > 0)
+            return true;
+        return false;
 
     }
 }

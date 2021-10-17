@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class EventsController extends Controller
 {
@@ -16,7 +17,8 @@ class EventsController extends Controller
     public function index()
     {
         //
-        return view('events.index');
+        $events = Events::where('stopTime', '>=', Carbon::now())->get();
+        return view('events.index')->with('events', $events);
     }
 
     /**
@@ -126,5 +128,15 @@ class EventsController extends Controller
             'events' => $events
             ]);
 
+    }
+
+    public function signup($eventslug) {
+        $event = Events::where('slug', $eventslug)->first();
+
+        $user = Auth::user();
+#        if($event->canSignup()) {
+            return view('events.signup')->with('user', $user)->with('event', $event);
+#        }
+        
     }
 }
