@@ -21,7 +21,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: secretroot
         ports:
           - 3306
-        options: --health-cmd="mysqladmin ping --health-interval=10s --health-timeout=5s --health-retried=3"
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
     - uses: shivammathur/setup-php@b7d1d9c9a92d8d8463ce36d7f60da34d461724f8
