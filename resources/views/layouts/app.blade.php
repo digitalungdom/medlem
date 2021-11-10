@@ -8,10 +8,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 	<!-- Test --!>
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Vestfold Digitale Ungdom</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -19,13 +20,17 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <!-- Styles -->
+    @livewireStyles
+    @powerGridStyles
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Vestfold Digitale Ungdom') }}
+                    <img src="/images/VDU-logo.png" width=120>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -36,12 +41,12 @@
                     <ul class="navbar-nav mr-auto">
                         @auth
                             <li><a class="nav-link" href="{{route('events.index')}}">Arrangementer</a></li>
-                            <li><a class="nav-link" href="{{route('spillservere.index')}}">Spillservere</a></li>
-                            <li><a class="nav-link" href="{{route('medlemsskap.index')}}">Mitt medlemsskap</a></li>
+                            {{-- <li><a class="nav-link" href="{{route('spillservere.index')}}">Spillservere</a></li> --}}
+                            <li><a class="nav-link" href="{{route('membership.index')}}">Medlemsskap</a></li>
                             <li><a class="nav-link" href="#">Bli frivillig</a></li>
 
                                 <li class="dropdown">
-                                    @canany(['events','roles','membershipType'])
+                                    @canany(['events','roles','membershipType','users'])
                                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">Admin</span> <span class="caret"></span></a>
                                     @endcanany
                                         <ul class="dropdown-menu">
@@ -56,10 +61,30 @@
                                         @can('membershipType')
                                             <li><a class="nav-link" href="{{ route('membershipType.index') }}">Medlemsskapstyper</a></li>
                                         @endcan
+
+                                        @can('users')
+                                            <li><a class="nav-link" href="{{ route('users.index') }}">Brukerliste</a></li>
+                                        @endcan
                                     </ul>
                                 </li>
 
                         @endauth
+                    </ul>
+                    <ul class="navbar-nav ml-auto align-items-baseline">
+                        @if(Auth::user()->is_parent)
+                            <div class="dropdown">Person: 
+                                <form method=POST action='{{ route('children.changeuser') }}'>
+                                    <select name=changeuser>
+                                        <option name='children' value='{{ Auth::user()->id }}'>{{ Auth::user()->FullName }}</option>
+                                        @foreach(Auth::user()->children() as $child)
+                                            <option name='children' value='$child->id'>{{ $child->FullName }}</option>
+                                        @endforeach
+                                        <option>---</option>
+                                        <option name='create'>Legg til nytt barn</option>
+                                    </select>
+                                </form>
+                            </div>
+                        @endif
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -71,7 +96,7 @@
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Bli medlem') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Registrer konto') }}</a>
                                 </li>
                             @endif
                         @else
@@ -102,5 +127,8 @@
             @yield('content')
         </main>
     </div>
+    <!-- Scripts -->
+    @livewireScripts
+    @powerGridScripts
 </body>
 </html>

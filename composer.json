@@ -13,14 +13,17 @@
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^7.0.1",
+        "highsolutions/github-hook": "^0.9.0",
         "laravel/cashier": "^12.0",
         "laravel/framework": "^8.0",
         "laravel/horizon": "^5.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
         "laravelcollective/html": "^6.1",
+        "livewire/livewire": "^2.7",
         "marvinlabs/laravel-discord-logger": "^1.1",
         "mxl/laravel-job": "^1.2",
+        "power-components/livewire-powergrid": "^1.4",
         "spatie/laravel-permission": "^3.11"
     },
     "require-dev": {

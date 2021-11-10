@@ -24,6 +24,13 @@
       0 => 'Fruitcake\\Cors\\CorsServiceProvider',
     ),
   ),
+  'highsolutions/github-hook' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'HighSolutions\\GitHubHook\\GitHubHookServiceProvider',
+    ),
+  ),
   'laravel/cashier' => 
   array (
     'providers' => 
@@ -47,6 +54,13 @@
     'providers' => 
     array (
       0 => 'Laravel\\Sail\\SailServiceProvider',
+    ),
+  ),
+  'laravel/slack-notification-channel' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Illuminate\\Notifications\\SlackChannelServiceProvider',
     ),
   ),
   'laravel/tinker' => 
@@ -75,11 +89,29 @@
       'Html' => 'Collective\\Html\\HtmlFacade',
     ),
   ),
+  'livewire/livewire' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Livewire\\LivewireServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Livewire' => 'Livewire\\Livewire',
+    ),
+  ),
   'marvinlabs/laravel-discord-logger' => 
   array (
     'providers' => 
     array (
       0 => 'MarvinLabs\\DiscordLogger\\ServiceProvider',
+    ),
+  ),
+  'mxl/laravel-job' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'MichaelLedin\\LaravelJob\\LaravelJobServiceProvider',
     ),
   ),
   'nesbot/carbon' => 
@@ -94,6 +126,13 @@
     'providers' => 
     array (
       0 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
+    ),
+  ),
+  'power-components/livewire-powergrid' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'PowerComponents\\LivewirePowerGrid\\Providers\\PowerGridServiceProvider',
     ),
   ),
   'spatie/laravel-permission' => 

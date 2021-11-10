@@ -21,6 +21,7 @@ class CreateMembershipTypesTable extends Migration
             $table->integer('minAge')->default(0)->nullable();
             $table->integer('price')->default(50)->nullable();
             $table->boolean('hidden')->nullable();
+            $table->string('stripe_product_id')->nullable();
         });
     }
 

@@ -11,12 +11,14 @@ use Illuminate\Notifications\Notifiable;
 use App\Membership;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Laravel\Cashier\Billable;
 
 class User extends Authenticatable
 {
     use Notifiable;
     use HasRoles;
     use HasFactory;
+    use Billable;
 
     /**
      * The attributes that are mass assignable.
@@ -24,7 +26,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'email', 'password','firstname','lastname','cellphone'
+        'email', 'password','firstname','lastname','cellphone','postnumber','address','is_parent','parent'
     ];
 
     /**
@@ -51,7 +53,7 @@ class User extends Authenticatable
 
 
     public function memberships() {
-        return $this->hasMany(Membership::class);
+        return $this->hasMany(Membership::class)->get();
     }
 
     public function getFullNameAttribute() {
@@ -59,7 +61,10 @@ class User extends Authenticatable
     }
 
     public function getIsMemberAttribute() {
-        $membership = Membership::where('user_id', '=', $this->id)->whereDate('stopTime', '>=',Carbon::today()->toDateString())->get();
+        $membership = Membership::where('user_id', '=', $this->id)
+            ->whereDate('stopTime', '>=',Carbon::today()->toDateString())
+            ->where('is_paid', true)
+            ->get();
         if($membership->count() > 0) return true;
         else return false;
     }
@@ -83,10 +88,14 @@ class User extends Authenticatable
         $member = Membership::where('user_id', $user->id)
             ->where('startTime', '<=', $date)
             ->where('stopTime', '>=', $date)
+            ->where('is_paid', true)
             ->get();
         if(count($member) > 0)
             return true;
         return false;
 
+    }
+    public function children() {
+        return $this->hasMany(User::class, 'parent')->get();
     }
 }

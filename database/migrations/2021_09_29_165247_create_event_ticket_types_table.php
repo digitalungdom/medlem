@@ -22,6 +22,8 @@ class CreateEventTicketTypesTable extends Migration
             $table->integer('maxPerUser')->default(1);
             $table->text('description')->nullable();
             $table->boolean('enabled')->nullable()->default(false);
+            $table->boolean('seatable')->nullable()->default(true);
+            
         });
     }
 

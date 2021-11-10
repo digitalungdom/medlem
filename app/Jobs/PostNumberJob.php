@@ -48,7 +48,7 @@ class PostNumberJob implements ShouldQueue
             #$data = preg_split('/\s+/', $line);
             $data = preg_split('/\t/', $line);
             if($data[0] && $data[1]) {
-                echo $data[0]." - ".$data[1]." - ".$data[2]." - ".$data[3]." - ".$data[4]."\n";
+                #echo $data[0]." - ".$data[1]." - ".$data[2]." - ".$data[3]." - ".$data[4]."\n";
                 $postnumber = Postnumber::firstOrNew(['postNummer' => $data[0]]);
                 $postnumber->postSted = iconv("WINDOWS-1252", "UTF-8", $data[1]);
                 $postnumber->kommuneNummer = $data[2];

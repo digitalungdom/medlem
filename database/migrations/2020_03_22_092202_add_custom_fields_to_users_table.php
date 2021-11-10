@@ -22,8 +22,8 @@ class AddCustomFieldsToUsersTable extends Migration
             $table->enum('gender', ['male', 'female','other','unknown'])->default('unknown');
             $table->dateTime('self_verified_at')->nullable();
             $table->dateTime('last_login')->nullable();
-            $table->boolean('globaladmin')->nullable();
-            $table->boolean('is_parent')->nullable();
+            $table->boolean('globaladmin')->nullable()->default(0);
+            $table->boolean('is_parent')->nullable()->default(0);
             $table->bigInteger('parent')->nullable()->references('id')->on('users');
             $table->text('address')->nullable();
             $table->integer('postnumber')->nullable();

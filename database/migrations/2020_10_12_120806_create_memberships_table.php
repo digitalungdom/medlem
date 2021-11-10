@@ -20,7 +20,10 @@ class CreateMembershipsTable extends Migration
             $table->datetime('stopTime');
             $table->foreignId('user_id');
             $table->foreignId('membership_type_id');
-
+            $table->boolean('autorenew')->nullable()->default(0);
+            $table->text('stripe_payment_id')->nullable();
+            $table->boolean('is_paid')->default(0);
+            $table->datetime('last_paid')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('membership_type_id')->references('id')->on('membership_types');

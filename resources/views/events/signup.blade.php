@@ -15,7 +15,7 @@
                     @endif
                     @if(!$event->userIsMember()) 
                         <div class="alert alert-warning" role="alert">
-                            Du kan ikke melde deg på, fordi du ikke er medlem. <a href="{{route ("medlemsskap.index")}}">Bli medlem</a>
+                            Du kan ikke melde deg på, fordi du ikke er medlem. <a href="{{route ("membership.index")}}">Bli medlem</a>
                         </div>
                     @endif
 
