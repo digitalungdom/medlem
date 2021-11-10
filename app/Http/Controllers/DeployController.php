@@ -19,7 +19,7 @@ class DeployController extends Controller
         Log::info("Starting check for deployment");
         if(hash_equals($githubHash, $localHash)) {
             $root_path = base_path();
-            $process = new Process('cd' . $root_path . '; ./deploy.sh');
+            $process = new Process(['cd', $root_path ,'; ./deploy.sh']);
             $process->run(function ($type, $buffer) {
                 Log::debug( $buffer );
             });
