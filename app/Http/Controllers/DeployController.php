@@ -16,7 +16,7 @@ class DeployController extends Controller
 
         $localToken = config('app.deploy_secret');
         $localHash = 'sha1=' . hash_hmac('sha1', $githubPayload, $localToken, false);
-
+        Log::info("Starting check for deployment");
         if(hash_equals($githubHash, $localHash)) {
             $root_path = base_path();
             $process = new Process('cd' . $root_path . '; ./deploy.sh');
@@ -26,7 +26,7 @@ class DeployController extends Controller
             Log::info('Should have updated from git now');
             
         } else {
-            log:error("Something was wrong with github hash. Update failed");
+            Log:error("Something was wrong with github hash. Update failed");
         }
     }
 }
