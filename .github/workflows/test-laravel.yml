@@ -46,5 +46,5 @@ jobs:
       run: php artisan migrate --force
     - name: Install NPM Dependencies
       run: npm install
-    - name: PHPunit
-      run: vendor/bin/phpunit
+#    - name: PHPunit
+#      run: vendor/bin/phpunit
