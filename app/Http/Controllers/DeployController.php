@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Symfony\Component\Process\Process;
 use Illuminate\Support\Facades\Log;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class DeployController extends Controller
 {
@@ -20,9 +21,12 @@ class DeployController extends Controller
         if(hash_equals($githubHash, $localHash)) {
             $root_path = base_path();
             $process = new Process(['cd', $root_path ,'; ./deploy.sh']);
-            $process->run(function ($type, $buffer) {
-                Log::debug( $buffer );
-            });
+            try {
+                $process->run();
+                Log::info($process->getOutput());
+            } catch (ProcessFailedException $e) {
+                Log::error( $e->getMessage() );
+            }
             Log::info('Should have updated from git now');
             
         } else {
