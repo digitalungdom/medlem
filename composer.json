@@ -24,7 +24,8 @@
         "marvinlabs/laravel-discord-logger": "^1.1",
         "mxl/laravel-job": "^1.2",
         "power-components/livewire-powergrid": "^1.4",
-        "spatie/laravel-permission": "^3.11"
+        "spatie/laravel-permission": "^3.11",
+        "symfony/process": "^5.3"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",

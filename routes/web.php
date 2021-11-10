@@ -50,3 +50,4 @@ Route::resource('test', 'TestController');
 Route::get('/betaling', function (Request $request){
     return $request->user()->redirectToBillingPortal('https://medlemdev.digitalungdom.no/medlemsskap');
 });
+Route::post('deploy', 'DeployController@deploy');
