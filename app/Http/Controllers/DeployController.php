@@ -30,7 +30,7 @@ class DeployController extends Controller
             Log::info('Should have updated from git now');
             
         } else {
-            Log:error("Something was wrong with github hash. Update failed");
+            Log::error("Something was wrong with github hash. Update failed");
         }
     }
 }
