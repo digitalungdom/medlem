@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class ChildrenController extends Controller
 {
@@ -119,5 +120,22 @@ class ChildrenController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public function changeuser(Request $request) {
+        if($request->input('changeuser') == 'create') return redirect(route('children.create'));
+
+        if(in_array($request->input('changeuser'),auth()->user()->children()->pluck('id')->toArray())) {
+            # User is parent changing to child
+            session(['parentuser' => auth()->user()->id]);
+            Auth::loginUsingId($request->input('changeuser'));
+        }
+        elseif($request->input('changeuser') == session('parentuser')) {
+            # User is parent returning from child
+            Auth::loginUsingId(session('parentuser'));
+            $request->session()->forget('parentuser');
+            
+        }
+        return back();
     }
 }

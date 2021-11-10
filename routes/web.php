@@ -36,7 +36,7 @@ Route::get('membership/success/{id}', 'MembershipController@successMembership')-
 Route::get('membership/failed/{id}', 'MembershipController@failedMembership')->name('membership.failed');
 Route::resource('users', 'UserController');
 Route::resource('children', 'ChildrenController');
-Route::post('children', 'ChildrenController@changeuser')->name('children.changeuser');
+Route::post('children/changeuser', 'ChildrenController@changeuser')->name('children.changeuser');
 
 
 /* Route::get('/medlemsskap', function() {

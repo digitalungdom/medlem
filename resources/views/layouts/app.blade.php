@@ -71,20 +71,33 @@
                         @endauth
                     </ul>
                     <ul class="navbar-nav ml-auto align-items-baseline">
+                        @auth
+                            
+                        
                         @if(Auth::user()->is_parent)
                             <div class="dropdown">Person: 
-                                <form method=POST action='{{ route('children.changeuser') }}'>
-                                    <select name=changeuser>
+                                <form method=POST action='{{ route('children.changeuser') }}' name="changeuser">
+                                    @csrf
+                                    <select name=changeuser onchange="this.form.submit()">
                                         <option name='children' value='{{ Auth::user()->id }}'>{{ Auth::user()->FullName }}</option>
                                         @foreach(Auth::user()->children() as $child)
-                                            <option name='children' value='$child->id'>{{ $child->FullName }}</option>
+                                            <option name='children' value='{{ $child->id }}'>{{ $child->FullName }}</option>
                                         @endforeach
                                         <option>---</option>
-                                        <option name='create'>Legg til nytt barn</option>
+                                        <option value='create'>Legg til nytt barn</option>
                                     </select>
                                 </form>
                             </div>
+                        @elseif(Session::has('parentuser')) 
+                            <div>
+                                <form method=POST action='{{ route('children.changeuser') }}' name="changeuser">
+                                    @csrf
+                                    <input type=hidden name=changeuser value='{{ session('parentuser') }}'>
+                                    <input type=submit value='Tilbake til foresattkonto'>
+                                </form>
+                            </div>
                         @endif
+                        @endauth
                     </ul>
 
                     <!-- Right Side Of Navbar -->
