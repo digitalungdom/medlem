@@ -19,13 +19,18 @@ class DeployController extends Controller
         $localHash = 'sha1=' . hash_hmac('sha1', $githubPayload, $localToken, false);
         Log::info("Starting check for deployment");
         if(hash_equals($githubHash, $localHash)) {
+        #if(true) {
             $root_path = base_path();
-            $process = new Process(['cd', $root_path ,'; ./deploy.sh']);
+            Log::info("Root:" . $root_path);
+            $process = new Process(['./deploy.sh']);
+            $process->setWorkingDirectory($root_path);
+            
             try {
-                $process->run();
-                Log::info($process->getOutput());
+                $process->mustRun();
+                Log::info($process->getOutput);
+            Log::info($process->getOutput());
             } catch (ProcessFailedException $e) {
-                Log::error( $e->getMessage() );
+                Log::error("Error: ".$e->getMessage() );
             }
             Log::info('Should have updated from git now');
             
