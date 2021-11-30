@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events;
+use App\EventType;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -46,13 +47,15 @@ class EventsController extends Controller
             'name' => 'required|unique:events|max:190',
             'slug' => 'required|unique:events|max:24',
             'startTime' => 'required|date|after:today',
-            'stopTime' => 'required|date|after:today'
+            'stopTime' => 'required|date|after:today',
+            'event_types_id' => 'required'
         ]);
         Events::create([
             'name' => $post['name'],
             'slug' => $post['slug'],
             'startTime' => $post['startTime'],
-            'stopTime' => $post['stopTime']
+            'stopTime' => $post['stopTime'],
+            'event_types_id' => $post['event_types_id']
             ]);
 
         return redirect(route('events.admin'));
@@ -122,16 +125,17 @@ class EventsController extends Controller
 
     public function adminindex() {
         $this->authorize('events', Events::class);
-        $events = Events::latest()->get();
+        #$events = Events::latest()->get();
         #ddd($events);
         return view("events.admin", [
-            'events' => $events
+            'events' => Events::latest()->get(),
+            'event_types' => EventType::all()
             ]);
 
     }
 
     public function signup($eventslug) {
-        $event = Events::where('slug', $eventslug)->first();
+        $event = Events::where('slug', $eventslug)->with('ticketTypes')->first();
 
         $user = Auth::user();
 #        if($event->canSignup()) {

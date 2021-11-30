@@ -22,7 +22,7 @@
                                 <td>{{ $event['startTime']}} til {{ $event['stopTime']}}</td>
                                 
                                 <td>@if($event['maxUsers'] == -1) Ubegrenset @else {{ $event['maxUsers'] }} @endif </td>
-                                <td></td>
+                                <td>{{ $event->eventtype->name }}</td>
                             <td>
                                 @if($event->eventIsOpen())<a href="{{route('events.signup', $event['slug'])}}">Påmelding</a>
                                 @else Påmelding er ikke åpent ennå

@@ -40,6 +40,12 @@
                         <br />
                         <input type=datetime-local name=stopTime placeholder="Stopptidspunkt">
                         <br />
+                        <select name='event_types_id'>
+                            @foreach($event_types as $eventtype)
+                                <option value='{{ $eventtype->id }}'>{{ $eventtype->name}}</option>
+                            @endforeach
+                        </select>
+                        <br />
                         <input type=submit value='Legg til arrangement' class="btn btn-primary">
                     </form>
 

@@ -11,7 +11,7 @@ class Events extends Model
 {
     //
     protected $fillable = [
-        'name', 'slug','startTime','stopTime','maxUsers','mustBeMember'
+        'name', 'slug','startTime','stopTime','maxUsers','mustBeMember','event_types_id'
     ];
 
 
@@ -23,7 +23,7 @@ class Events extends Model
     }
 
     public function ticketTypes() {
-        return $this->hasMany(EventTicketTypes::class);
+        return $this->hasMany(EventTicketTypes::class, 'event_id');
     }
 
     public function userIsMember($user = NULL) {
@@ -37,6 +37,10 @@ class Events extends Model
     public function eventIsOpen() {
         if($this->public) return true;
         return false;
+    }
+
+    public function eventtype() {
+        return $this->belongsTo(EventType::class, 'event_types_id');
     }
 }
 

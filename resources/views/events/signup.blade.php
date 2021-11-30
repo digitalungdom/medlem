@@ -24,7 +24,33 @@
                             Arrangementet er ikke åpent for påmelding ennå
                         </div>
                     @endif
-                  
+                    
+                    @forelse ($event->ticketTypes as $tickettype)
+                        <ul class="list-group">
+                            <li class="list-group-item">
+                            {{ $tickettype->name}}
+                            
+                            
+                            <form method=POST action={{ route('events.signup.doSignup', $tickettype->id)}}>
+                                @csrf
+                            
+                                @if($tickettype->maxPerUser == 1)
+                                    
+                                    <input type=hidden name=numberOfTickets value=1>
+                                @elseif($tickettype->maxPerUser > 1)
+                                    <select name=numberOfTickets>
+                                        @for($i=1;$i<=$tickettype->maxPerUser;$i++)
+                                            <option value={{ $i }}>{{ $i }}</option>
+                                        @endfor
+                                    </select>
+                                @endif
+                                <input type=submit value='Bestill' class='btn btn-primary'>
+                            </form>
+                            </li>
+                        </ul>
+                    @empty
+                        <div><p>Ingen billetter lagt til arrangementet ennå</p></div>
+                    @endforelse
                 </div>
             </div>
         </div>

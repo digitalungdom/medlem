@@ -28,6 +28,7 @@ Auth::routes(['verify' => true]);
 Route::resource('events', 'EventsController');
 Route::get('admin/events', 'EventsController@adminindex')->name('events.admin');
 Route::get('{event}/signup', 'EventsController@signup')->name('events.signup');
+Route::post('{event}/signup', 'EventsController@doSignup')->name('events.signup.doSignup');
 Route::resource('admin/role', 'RoleController');
 Route::resource('membershipType', 'MembershipTypeController');
 Route::resource('events/{event}/tickettypes', 'EventTicketTypesController');
