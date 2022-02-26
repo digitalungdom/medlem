@@ -25,11 +25,11 @@ jobs:
       with:
         php-version: '8.0'
     - uses: actions/checkout@v2
-    - name: Verify MySQL connection
-      run: |
-        mysql --version
-        sudo apt-get install -y mysql-client
-        mysql --host 127.0.0.1 --port 33306 -uuser -psecret -e "SHOW DATABASES"
+#    - name: Verify MySQL connection
+#      run: |
+#        mysql --version
+#        sudo apt-get install -y mysql-client
+#        mysql --host 127.0.0.1 --port 33306 -uuser -psecret -e "SHOW DATABASES"
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.ci', '.env');"
     - name: Install Dependencies
