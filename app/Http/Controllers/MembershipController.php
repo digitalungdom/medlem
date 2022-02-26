@@ -91,7 +91,7 @@ class MembershipController extends Controller
         $checkout_param = ['success_url' => route('membership.success', $membership->id), 'cancel_url' => route('membership.failed', $membership->id), 'client_reference_id' => 'membership_'.$membership->id];
 
         if($request->input('auto_renew')) {
-            $checkout = $user->newSubscription('membership_subscription_' + $membership->id, $price_recurring->id)->checkout($checkout_param);
+            $checkout = $user->newSubscription('membership_subscription_' . $membership->id, $price_recurring->id)->checkout($checkout_param);
         }
         else {
           
