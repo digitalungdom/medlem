@@ -12,4 +12,8 @@ class EventTicketTypes extends Model
     protected $fillable = [
         'name', 'price','event_id','maxPerUser','description','enabled'
     ];
+
+    public function tickets() {
+        return $this->hasMany(Ticket::class, 'ticketType');
+    }
 }

@@ -24,6 +24,15 @@
                             Arrangementet er ikke åpent for påmelding ennå
                         </div>
                     @endif
+
+                    @if($event->tickets->count() > 0)
+                        <div>
+                            @foreach($event->tickets as $ticket)
+                                <br>{{ $ticket->id }} - {{ $ticket->status }} - {{ $ticket->ticketTypes->name }}
+
+                            @endforeach
+                        </div>
+                    @endif
                     
                     @forelse ($event->ticketTypes as $tickettype)
                         <ul class="list-group">
@@ -31,9 +40,9 @@
                             {{ $tickettype->name}}
                             
                             
-                            <form method=POST action={{ route('events.signup.doSignup', $tickettype->id)}}>
+                            <form method=POST action={{ route('events.signup.doSignup', $event->slug)}}>
                                 @csrf
-                            
+                                <input type=hidden name='ticketType' value='{{ $tickettype->id }}'>
                                 @if($tickettype->maxPerUser == 1)
                                     
                                     <input type=hidden name=numberOfTickets value=1>

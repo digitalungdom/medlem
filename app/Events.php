@@ -25,6 +25,16 @@ class Events extends Model
     public function ticketTypes() {
         return $this->hasMany(EventTicketTypes::class, 'event_id');
     }
+    public function tickets($user = "NOTSET") {
+        $ticketTypes = $this->ticketTypes()->pluck('id');
+        if($user == "NOTSET") $user = auth()->user()->id;
+        #dd($ticketTypes);
+        #dd($user);
+        #return $this->hasMany(Ticket::class)
+        #    ->where('owner', $user)
+        #    ->where('ticketType', $ticketTypes);
+        return $this->hasManyThrough(Ticket::class, EventTicketTypes::class, 'event_id', 'ticketType');
+    }
 
     public function userIsMember($user = NULL) {
         if($user == NULL) $user = Auth::user();

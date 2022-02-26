@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Events;
 use App\EventType;
+use App\EventTicketTypes;
+use App\Ticket;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
@@ -135,12 +137,38 @@ class EventsController extends Controller
     }
 
     public function signup($eventslug) {
-        $event = Events::where('slug', $eventslug)->with('ticketTypes')->first();
-
+        $event = Events::where('slug', $eventslug)->with('ticketTypes')->with('tickets')->first();
         $user = Auth::user();
 #        if($event->canSignup()) {
             return view('events.signup')->with('user', $user)->with('event', $event);
 #        }
         
+    }
+
+    public function doSignup($eventslug, Request $request) {
+        $event = Events::where('slug', $eventslug)->first();
+        $validated = $request->validate([
+            'ticketType' => 'required|exists:event_ticket_types,id',
+            'numberOfTickets' => 'integer'
+
+        ]);
+        
+        $tickettype = EventTicketTypes::find($validated['ticketType']);
+        $previous_tickets = Ticket::where('owner', auth()->user()->id)
+            ->where('ticketType', $validated['ticketType'])
+            ->count();
+        $numTickets = $validated['numberOfTickets'];
+
+        if($numTickets > ($tickettype->maxPerUser - $previous_tickets))
+            return "Too many tickets ordered. This is not possible";
+        
+        for($i=1;$i<=$numTickets;$i++) {
+            $t = new Ticket;
+            $t->ticketType = $tickettype->id;
+            $t->owner = auth()->user()->id;
+            $t->status = 'unpaid';
+            $t->save();
+        }
+        return redirect()->route('events.signup', ['event' => $event->slug]);
     }
 }
